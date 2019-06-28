@@ -26,7 +26,7 @@ public class Cheese {
     @ManyToOne
     private Category category;
 
-    @ManyToMany(mappedBy = "cheese") //hybernate
+    @ManyToMany(mappedBy = "cheeses") //hybernate
     private List<Menu> menus; //not accessing outside of class, so private
 
     public Cheese(String name, String description) {
