@@ -3,11 +3,10 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
 <h1 th:text="${title}">Default Title</h1>
-<!--
+
 <ul>
-    <li th:each="cat : ${category}"></li>
-    <li th:text="cat.name"></li>
+    <li th:each="cat:${category}" th:text="${cat.name}"></li>
 </ul>
--->
+
 </body>
 </html>
