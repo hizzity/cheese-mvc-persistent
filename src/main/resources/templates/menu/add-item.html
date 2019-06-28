@@ -6,9 +6,10 @@
 
         <nav th:replace="fragments :: navigation"></nav>
 
-        <form method=post" th:object=""${form} action="/menu/add-item">
+        <form method="post" th:object="${form}" action="/menu/add-item">
             <div class="form-group">
-                <lable th:for="cheeseId">Cheese</lable>
+                <label th:for="cheeseId">Cheese</label>
+                <span th:errors="*{name}" class="error"></span>
                 <select name="cheeseId">
                     <option th:each="cheese : *{cheese}"
                             th:text="${cheese.name}"
