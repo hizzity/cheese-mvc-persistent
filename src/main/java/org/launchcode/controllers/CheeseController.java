@@ -58,7 +58,7 @@ public class CheeseController {
         }
 
         Category cat = categoryDao.findOne(categoryId);
-        newCheese.setCategory(cat);
+        newCheese.setCategory(cat); //setter in use!
         cheeseDao.save(newCheese);
 
         cheeseDao.save(newCheese);

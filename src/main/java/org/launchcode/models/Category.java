@@ -25,7 +25,8 @@ public class Category {
 
     public Category(){} //default constructor used by Hibernate
 
-    public Category(String name) { this.name = name; }
+    public Category(String name) { this.name = name; } //add Category by 'name'
+
 
     public int getId() {
         return id;
