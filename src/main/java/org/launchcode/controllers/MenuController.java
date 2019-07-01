@@ -36,12 +36,11 @@ public class MenuController {
     public String add(Model model){
         model.addAttribute("title", "Add Menu");
         model.addAttribute(new Menu());//calling on class default constructor to pass Menu obj to help render the form
-        return "menu/add"; //TODO "post to the sme URL at which it is displayed"
+        return "menu/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(@ModelAttribute @Valid Menu menu,
-                      Errors errors, Model model) {
+    public String add(@ModelAttribute @Valid Menu menu, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title","Add Menu");
@@ -52,21 +51,31 @@ public class MenuController {
             return "redirect:view/" + menu.getId();
         }
 
-    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
-    public String addItem(Model model, @PathVariable int menuId){ //passes menuId to URL
-        Menu menu = menuDao.findOne(menuId);
+    @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
+// instructions different than video
+    public String viewMenu(Model model, @PathVariable int menuId){ //passes menuId to URL
 
-//AddMenuItemFrom created just to make relationship, video 3 12 min
+        Menu menu = menuDao.findOne(menuId);
+       // model.addAttribute("title", "Add item to menu: " + menu.getName());
+        model.addAttribute("menu", menu); //pass menu object, rather than each field
+        return "menu/view";
+    }
+
+    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
+    public String addItem(Model model, @PathVariable int menuId) {
+
+        Menu menu = menuDao.findOne(menuId);
         AddMenuItemForm form = new AddMenuItemForm(cheeseDao.findAll(), menu);
 
-        model.addAttribute("title", "Add item to menu: " + menu.getName());
+        model.addAttribute("title", "Add item to menu: " +menu.getName());
         model.addAttribute("form", form);
         return "menu/add-item";
     }
 
-
     @RequestMapping(value = "add-item", method = RequestMethod.POST)
     public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm form, Errors errors){
+
+        //AddMenuItemFrom created just to make relationship, video 3 12 min
 
         if(errors.hasErrors()){
             model.addAttribute("form", form);
