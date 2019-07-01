@@ -11,25 +11,24 @@ import java.util.List;
 @Entity
 public class Menu {
 
-    @NotNull
-    @Size(min=3, max=15)
-    private String name;
-
     @Id //sets as id in table
     @GeneratedValue //generated on it own
     private int id;
 
+
+    @NotNull
+    @Size(min=3, max=15)
+    private String name;
+
     @ManyToMany
     private List<Cheese> cheeses; //holds all items in menu
 
-    public void addItem(Cheese name) { //not sure if this is complete TODO
+    public Menu(){} //empty default constructor, always needed for hybernate...I think
+
+    public void addItem(Cheese item) { cheeses.add(item); //adds item to each menu
     }
 
     public Menu(String name) { this.name = name; }
-
-    public Menu(){} //empty default constructor, always needed for hybernate...I think
-
-
 
     public String getName() {
         return name;

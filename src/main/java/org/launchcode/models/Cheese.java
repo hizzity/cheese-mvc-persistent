@@ -28,6 +28,7 @@ public class Cheese {
 
     @ManyToMany(mappedBy = "cheeses") //hybernate
     private List<Menu> menus; //not accessing outside of class, so private
+    //looks at cheeses property on the Menu class
 
     public Cheese(String name, String description) {
         this.name = name;

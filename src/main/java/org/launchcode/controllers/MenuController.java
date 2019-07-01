@@ -2,7 +2,6 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Cheese;
 import org.launchcode.models.Menu;
-import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
 import org.launchcode.models.forms.AddMenuItemForm;
@@ -27,9 +26,8 @@ public class MenuController {
 
     @RequestMapping(value = "")
     public String index(Model model){
-        model.addAttribute("menus", menuDao.findAll());
         model.addAttribute("title", "Menus");
-
+        model.addAttribute("menus", menuDao.findAll());
         return "menu/index";
         //return "redirect:?id="+menuId;
     }
@@ -54,17 +52,18 @@ public class MenuController {
             return "redirect:view/" + menu.getId();
         }
 
-    @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
-    public String viewMenu(Model model, @PathVariable int menuId){ //passes menuId to URL
+    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
+    public String addItem(Model model, @PathVariable int menuId){ //passes menuId to URL
         Menu menu = menuDao.findOne(menuId);
 
 //AddMenuItemFrom created just to make relationship, video 3 12 min
         AddMenuItemForm form = new AddMenuItemForm(cheeseDao.findAll(), menu);
 
-        model.addAttribute("title", "Add item to menu: " +menu.getName());
+        model.addAttribute("title", "Add item to menu: " + menu.getName());
         model.addAttribute("form", form);
         return "menu/add-item";
     }
+
 
     @RequestMapping(value = "add-item", method = RequestMethod.POST)
     public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm form, Errors errors){
